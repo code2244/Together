@@ -11,7 +11,7 @@ import { getMatchMonth, getEventsByDayNumber } from 'utilities/calendar';
 const Calendar = () => {
   const date = useDate();
   const [events, setEvents] = useState([]);
-
+  const [loading, setLoading] = useState(true)
   const eventsInSelectedMonth = getMatchMonth(date.month, events);
   // Populate appropriate days with event titles
   const data = Array.from({ length: date.daysInMonth }, (_, i) => {
@@ -24,18 +24,20 @@ const Calendar = () => {
   })
 
   useEffect(() => {
+    setLoading(true)
     // Fetch events from server
     const fetch = async () => {
       const eventsData = await eventService.get()
       setEvents(eventsData)
     };
   
-    fetch()
+    fetch().then(setLoading(false))
+    .catch(setLoading(false))
   },[])
 
   // Render nothing when events array is empty
   const emptyEvents = !events.length;
-  if (emptyEvents) return null;
+  if (loading === true) return null;
 
 
   return (
