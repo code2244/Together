@@ -5,7 +5,8 @@ import Modal from "features/modal/Modal";
 import DataService from "services/dataService";
 import { Context } from "./contexts/Context"
 import LandingPage from "features/home/LandingPage";
-import WelcomeUser from "features/auth/WelcomeUser";
+import ModalWelcome from "features/modal/ModalWelcome";
+
 
 function App() {
   const [context, setContext] = useState({page: "landingPage", user: null, event: null, eventModal: false})
@@ -22,8 +23,9 @@ function App() {
   return (
     <Context.Provider value={[context, setContext]}>
       {context.user &&
-        <WelcomeUser displayName={context.user.displayName} />
+       <ModalWelcome type="welcomeUser" open={'welcomeUserModal'} />
       }
+      
       {context.page === "landingPage" &&
       <div className="bg-primary overflow-hidden flex justify-center items-center h-screen">
         <div className="flex w-1/3">

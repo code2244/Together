@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { AnimatePresence } from "framer-motion";
-import EventModal from "./EventModal";
+
 import WelcomeUserModal from "./WelcomeUserModal";
 import { Context } from "contexts/Context";
 import Backdrop from "./Backdrop";
 import { motion } from "framer-motion";
 
-const Modal = (props) => {
+const ModalWelcome = (props) => {
   const [context, setContext] = useContext(Context)
 
   const toggleModal = () => {
@@ -52,8 +52,8 @@ const Modal = (props) => {
               animate="visible"
               exit="exit"
             >
-              <EventModal handleClose={toggleModal} />
-              <WelcomeUserModal handleClose={toggleModal} />
+       
+            <WelcomeUserModal handleClose={toggleModal} />
             </motion.div>
           </Backdrop>
         }
@@ -62,4 +62,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default ModalWelcome;
