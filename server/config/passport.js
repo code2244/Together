@@ -20,8 +20,9 @@ module.exports = function (passport) {
         callbackURL: "/auth/discord/callback",
         // pulls discord username without email, and returns basic information about all the user's current guilds / servers.
         scope: ["identify", "guilds"],
+        passReqToCallback: true
       },
-      async function (accessToken, refreshToken, profile, cb) {
+      async function (currentReq, accessToken, refreshToken, profile, cb) {
         const displayName = `${profile.username}#${profile.discriminator}`;
         const is100Dever = profile.guilds.some(
           server => server.id === "735923219315425401"
@@ -31,6 +32,7 @@ module.exports = function (passport) {
           return cb(null, false, {
             msg: "You must be a member of the 100Devs Discord to use this application",
           });
+        
         // Check if user exists in DB
         let user = await User.findOne({ discordId: profile.id }).exec();
 
@@ -42,8 +44,9 @@ module.exports = function (passport) {
               discordId: profile.id,
               avatar: profile.avatar,
               socials: [],
-              bio: "",
+              bio: "" 
             });
+            currentReq.session.isFirstLogin = true
             return cb(null, user);
           } else {
             // it user already exists, update display name and avatar

@@ -5,7 +5,7 @@ import DataService from "services/dataService";
 // Allow us to check and modify any methods/functions in one place.
 const useProvideAuth = () => {
   const [user, setUser] = useState(null);
-
+  console.log(user)
   // Check if there is already a user session
   useEffect(() => {
     // If so, save user's information to the context
@@ -24,10 +24,14 @@ const useProvideAuth = () => {
     return !!user;
   };
 
+
+
+  const isFirstLogin = (user) => user.isFirstLogin;
+
   return {
     user,
     logout,
-    isAuthenticated
+    isFirstLogin,
   };
 };
 

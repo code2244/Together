@@ -25,7 +25,13 @@ router.get(
   })
 );
 router.get("/getDisplayName", (req, res) => {
-  res.json(req.user || null);
+  // Passport middleware is not setting the session value correctly
+  if (req.session.isFirstLogin) {
+    res.json({ ...req.user, isFirstLogin: true })
+    console.log("hey is your first time")
+  } else {
+    res.json(req.user || null);
+  }
 });
 
 module.exports = router;
