@@ -50,7 +50,9 @@ module.exports = function (passport) {
             // Bug at line 50 in the passport middleware if the cb
             // returns a successful user the session does not get set, if 
             // the cb returns false the session get set.
+            console.log(user)
             return cb(null, user);
+            // return cb(null, false);
           } else {
             // it user already exists, update display name and avatar
             user.displayName = displayName;
