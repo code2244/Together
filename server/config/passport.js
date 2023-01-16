@@ -47,6 +47,9 @@ module.exports = function (passport) {
             });
             // setting isFirstLogin property to true
             currentReq.session.isFirstLogin = true
+            // Bug at line 50 in the passport middleware if the cb
+            // returns a successful user the session does not get set, if 
+            // the cb returns false the session get set.
             return cb(null, user);
           } else {
             // it user already exists, update display name and avatar
