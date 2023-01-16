@@ -19,9 +19,9 @@ module.exports = function (passport) {
         clientSecret: process.env.DISCORD_CLIENT_SECRET,
         callbackURL: "/auth/discord/callback",
         // pulls discord username without email, and returns basic information about all the user's current guilds / servers.
-        scope: ["identify", "guilds"],
+        scope: ["identify", "guilds"], passReqToCallback: true
       },
-      async function (accessToken, refreshToken, profile, cb) {
+      async function (currentReq, accessToken, refreshToken, profile, cb) {
         const displayName = `${profile.username}#${profile.discriminator}`;
         const is100Dever = profile.guilds.some(
           server => server.id === "735923219315425401"
@@ -45,6 +45,8 @@ module.exports = function (passport) {
               socials: [],
               bio: "",
             });
+            // setting isFirstLogin property to true
+            currentReq.session.isFirstLogin = true
             return cb(null, user);
           } else {
             // it user already exists, update display name and avatar
