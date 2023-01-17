@@ -26,13 +26,13 @@ const useProvideAuth = () => {
   };
 
   // Check if a user is logging in for the first time.
-  const isFirstLogin = (user) => user.isFirstLogin;
+  const needsToBeWelcome = (user) => user.needsToBeWelcome;
 
   return {
     user,
     logout,
     isAuthenticated,
-    isFirstLogin
+    needsToBeWelcome
   };
 };
 

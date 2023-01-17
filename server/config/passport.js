@@ -45,8 +45,8 @@ module.exports = function (passport) {
               socials: [],
               bio: "",
             });
-            // setting isFirstLogin property to true
-            currentReq.session.isFirstLogin = true
+            // setting needsToBeWelcome property to true
+            currentReq.session.needsToBeWelcome = true
             // Bug at line 50 in the passport middleware if the cb
             // returns a successful user the session does not get set, if 
             // the cb returns false the session get set.

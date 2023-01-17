@@ -26,8 +26,8 @@ router.get(
 );
 router.get("/getDisplayName", (req, res) => {
   // NOTE: Passport middleware is not getting the session value correctly
-  if (req.session.isFirstLogin) {
-    res.json({ ...req.user, isFirstLogin: true })
+  if (req.session.needsToBeWelcome) {
+    res.json({ ...req.user, needsToBeWelcome: true })
   } else {
     res.json(req.user || null);
   }
